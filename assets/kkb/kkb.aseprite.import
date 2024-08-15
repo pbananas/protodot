@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="AtlasTexture"
+uid="uid://cmy0r6fsdrk5a"
+path="res://.godot/imported/kkb.aseprite-28d5ec9b44c16ef9ea3dbc9145543c6f.res"
+
+[deps]
+
+source_file="res://assets/kkb/kkb.aseprite"
+dest_files=["res://.godot/imported/kkb.aseprite-28d5ec9b44c16ef9ea3dbc9145543c6f.res"]
+
+[params]
+
+exclude_layers_pattern=""
+only_visible_layers=false

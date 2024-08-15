@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://si62vm5g6rfv"]
+
+[ext_resource type="Script" path="res://modes/game.gd" id="1_14mg7"]
+
+[node name="Game" type="Node2D" groups=["game"]]
+y_sort_enabled = true
+script = ExtResource("1_14mg7")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 142.0
+offset_top = 71.0
+offset_right = 185.0
+offset_bottom = 94.0
+text = "game
+"

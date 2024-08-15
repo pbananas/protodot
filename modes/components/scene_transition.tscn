@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://cbq0mqynl1elk"]
+
+[ext_resource type="Script" path="res://modes/components/scene_transition.gd" id="1_pmknj"]
+[ext_resource type="Shader" path="res://modes/components/scene_transition.gdshader" id="2_7un1w"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5natg"]
+shader = ExtResource("2_7un1w")
+shader_parameter/circle_size = null
+shader_parameter/screen_width = null
+shader_parameter/screen_height = null
+
+[sub_resource type="Gradient" id="Gradient_8l3mt"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_o2gtf"]
+gradient = SubResource("Gradient_8l3mt")
+width = 224
+
+[node name="SceneTransition" type="CanvasLayer"]
+script = ExtResource("1_pmknj")
+
+[node name="Circle" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_5natg")
+offset_right = 224.0
+offset_bottom = 126.0
+texture = SubResource("GradientTexture1D_o2gtf")
