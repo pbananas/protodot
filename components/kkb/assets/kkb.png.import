@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c16h4havxesm2"
-path="res://.godot/imported/kkb.png-9f59d72fb368ac05034082fbfdf57d47.ctex"
+path="res://.godot/imported/kkb.png-875088d947ddd43d339011cd3954034b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/kkb/kkb.png"
-dest_files=["res://.godot/imported/kkb.png-9f59d72fb368ac05034082fbfdf57d47.ctex"]
+source_file="res://components/kkb/assets/kkb.png"
+dest_files=["res://.godot/imported/kkb.png-875088d947ddd43d339011cd3954034b.ctex"]
 
 [params]
 

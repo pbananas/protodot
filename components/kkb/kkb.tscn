@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjgmcc282ltmd"]
+
+[ext_resource type="Texture2D" uid="uid://c16h4havxesm2" path="res://components/kkb/assets/kkb.png" id="1_cu0br"]
+[ext_resource type="Script" path="res://components/kkb/kkb.gd" id="2_3sy4k"]
+
+[node name="KKB" type="Sprite2D"]
+position = Vector2(160, 90)
+scale = Vector2(4, 4)
+texture = ExtResource("1_cu0br")
+script = ExtResource("2_3sy4k")

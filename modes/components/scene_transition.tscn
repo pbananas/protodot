@@ -5,7 +5,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5natg"]
 shader = ExtResource("2_7un1w")
-shader_parameter/circle_size = null
+shader_parameter/circle_size = 0.601
 shader_parameter/screen_width = null
 shader_parameter/screen_height = null
 
@@ -14,13 +14,13 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_o2gtf"]
 gradient = SubResource("Gradient_8l3mt")
-width = 224
 
 [node name="SceneTransition" type="CanvasLayer"]
+follow_viewport_enabled = true
 script = ExtResource("1_pmknj")
 
 [node name="Circle" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_5natg")
 offset_right = 224.0
-offset_bottom = 126.0
+offset_bottom = 1.0
 texture = SubResource("GradientTexture1D_o2gtf")

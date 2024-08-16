@@ -9,4 +9,3 @@ script = ExtResource("1_s1d11")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="SceneTransition" parent="." instance=ExtResource("2_eakw3")]
-script = null

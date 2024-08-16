@@ -1,16 +1,24 @@
 extends Node2D
 
-@onready var _sfx := {
-	"kkb": preload("res://assets/kkb/kkb.ogg")
-}
-@onready var _music := {
+var _existing := {
+	&"SFX": [],
+	&"Music": []
 }
 
-func _ready() -> void:
-	for key in _sfx: _add(key, _sfx[key], &"SFX")
-	for key in _music: _add(key, _music[key], &"Music")
+#@onready var _sfx := {}
+#@onready var _music := {}
+
+#func _ready() -> void:
+	#for key in _sfx: _add(key, _sfx[key], &"SFX")
+	#for key in _music: _add(key, _music[key], &"Music")
+
+func add_sfx(sound_name: StringName, file: AudioStream) -> void:
+	_add(sound_name, file, &"SFX")
+func add_music(sound_name: StringName, file: AudioStream) -> void:
+	_add(sound_name, file, &"Music")
 
 func _add(sound_name: StringName, file: AudioStream, bus: StringName) -> void:
+	if sound_name in _existing[bus]: return
 	var asp := AudioStreamPlayer.new()
 	asp.name = sound_name
 	asp.bus = bus
