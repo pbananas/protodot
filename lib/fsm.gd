@@ -47,23 +47,23 @@ func set_state_property(state_name: StringName, property_name: String, value: Va
 	_states[state_name].set(property_name, value)
 
 func _change_state(new_state_name: String, enter_args: Dictionary={}):
-	if Config.DEBUG:
-		print("CHANGING STATE: ", new_state_name, " (current: ", _current_state, ")")
+	#if Config.DEBUG:
+		#print("CHANGING STATE: ", new_state_name, " (current: ", _current_state, ")")
 
 	var from_last_state: Dictionary
 	if _current_state is State:
 		_current_state._exit_state_base()
 		from_last_state = await _current_state._exit_state()
-	if Config.DEBUG: print("\tEXIT COMPLETE - from last: ", from_last_state)
+	#if Config.DEBUG: print("\tEXIT COMPLETE - from last: ", from_last_state)
 
 	var new_state: State = _states[new_state_name]
 	new_state._enter_state_base()
 	await new_state._enter_state(enter_args, from_last_state)
-	if Config.DEBUG: print("\tENTER COMPLETE")
+	#if Config.DEBUG: print("\tENTER COMPLETE")
 	_current_state = new_state
 
 	call_deferred("emit_signal", "state_changed")
 
-func _handle_input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if _current_state:
 		_current_state._handle_input(event)

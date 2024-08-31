@@ -3,42 +3,32 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )"
 
 trap ctrl_c INT
-function ctrl_c {
-	exit 0
-}
+function ctrl_c {	exit 0 }
 
 function generate {
-	echo "Generating Dad Parts..."
-	/Applications/Aseprite.app/Contents/MacOS/aseprite \
+	# split layers into individual sprites
+	echo "Generating parts..."
+	$ASEPRITE_PATH \
 		--verbose \
 		--batch \
 		--all-layers \
-		$DIR/assets/dad_parts.aseprite \
+		$DIR/components/something/assets/something.aseprite \
 		--split-layers \
 		--trim \
-		--save-as $DIR/assets/dad_parts/{layer}.png
+		--save-as $DIR/components/something/assets/{layer}.png
 
-	# clean up layers that shouldn't have been exported
+	# clean up layers from groups that shouldn't have been exported
 	# (--ignore-layer doesn't work https://github.com/aseprite/aseprite/issues/2026)
-	rm "$DIR/assets/dad_parts/Heads.png"
-	rm "$DIR/assets/dad_parts/Necks.png"
-	rm "$DIR/assets/dad_parts/Torsos.png"
-	rm "$DIR/assets/dad_parts/Crotches.png"
-	rm "$DIR/assets/dad_parts/Arms L.png"
-	rm "$DIR/assets/dad_parts/Arms R.png"
-	rm "$DIR/assets/dad_parts/Legs L.png"
-	rm "$DIR/assets/dad_parts/Legs R.png"
-	rm "$DIR/assets/dad_parts/Faces.png"
-	rm "$DIR/assets/dad_parts/Hair Above.png"
-	rm "$DIR/assets/dad_parts/Hair Below.png"
+	rm "$DIR/components/something/assets/GroupName.png"
 
-	echo "Generating goop spritesheet..."
-	/Applications/Aseprite.app/Contents/MacOS/aseprite \
+	# generate spritesheet
+	echo "Generating spritesheet..."
+	$ASEPRITE_PATH \
 		--batch \
 		--all-layers \
 		--split-layers \
-		$DIR/assets/goops.aseprite \
-		--sheet $DIR/assets/goops.png
+		$DIR/components/something/assets/somethingelse.aseprite \
+		--sheet $DIR/components/something/assets/somethingelse.png
 
 	echo "DONE"
 	echo
