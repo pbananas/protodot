@@ -25,6 +25,9 @@ cd ..
 cp -r "$DIR" "$DEST"
 cd "$DEST" || exit
 
+sed -i 's/config\/name="_template"/config\/name="'"$REPO"'"/' project.godot
+rm bin/instantiate.sh
+
 rm -rf .git
 git init
 git add .
