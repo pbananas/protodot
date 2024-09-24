@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4i7gyb47wcve"]
+
+[ext_resource type="Script" path="res://components/camera/camera.gd" id="1_03b1c"]
+
+[node name="Camera" type="Camera2D"]
+ignore_rotation = false
+script = ExtResource("1_03b1c")
+
+[node name="CurrentPos" type="ColorRect" parent="."]
+visible = false
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0
+color = Color(0.367915, 0.700875, 0.821074, 1)
+
+[node name="TargetPos" type="ColorRect" parent="."]
+visible = false
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0
+color = Color(3.56168e-06, 0.675075, 0.437862, 1)

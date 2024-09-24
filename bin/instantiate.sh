@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )"
+
 usage() {
     echo "Usage: $0 [DEST_DIR] [GITHUB_REPO]"
     echo "  DEST_DIR: Destination directory name (required)"
@@ -11,7 +13,7 @@ if [ $# -eq 0 ]; then
     usage
 elif [ $# -eq 1 ]; then
     DEST=$1
-    REPO=$1
+    REPO=$(basename $1)
 elif [ $# -eq 2 ]; then
     DEST=$1
     REPO=$2
@@ -19,20 +21,21 @@ else
     usage
 fi
 
-DIR=$(basename $PWD)
-
-cd ..
 cp -r "$DIR" "$DEST"
 cd "$DEST" || exit
 
-sed -i 's/config\/name="_template"/config\/name="'"$REPO"'"/' project.godot
-rm bin/instantiate.sh
+sed -i "" "s|config/name=\\\"_template\\\"|config/name=\\\"$REPO\\\"|" project.godot
 
+rm bin/instantiate.sh
 rm -rf .git
+rm -rf .godot
+
 git init
+git config user.email "itspetebananas@gmail.com"
+git config user.name "pbananas"
 git add .
 git commit -m "instantiate"
-git remote add origin git@github.com:rfunduk/$REPO.git
+git remote add origin git@github.com:pbananas/$REPO.git
 
 read -p "Does the GitHub repository '$REPO' exist? (y/n) " -n 1 -r
 echo

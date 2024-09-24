@@ -4,8 +4,6 @@ class_name FSM
 signal state_changed
 signal change_state(new_state: String, enter_args: Dictionary)
 
-@export var target: Node2D
-
 var current_state: String :
 	get: return _current_state.name
 var _current_state: State

@@ -5,3 +5,5 @@ var main_scene:Main
 
 func _ready() -> void:
 	GameState.start_game()
+
+func transition_complete() -> void: pass

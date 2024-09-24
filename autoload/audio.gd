@@ -5,12 +5,10 @@ var _existing := {
 	&"Music": []
 }
 
-#@onready var _sfx := {}
-#@onready var _music := {}
+var _fade_tweens := {}
 
-#func _ready() -> void:
-	#for key in _sfx: _add(key, _sfx[key], &"SFX")
-	#for key in _music: _add(key, _music[key], &"Music")
+func _ready() -> void:
+	pass
 
 func add_sfx(sound_name: StringName, file: AudioStream) -> void:
 	_add(sound_name, file, &"SFX")
@@ -23,10 +21,26 @@ func _add(sound_name: StringName, file: AudioStream, bus: StringName) -> void:
 	asp.name = sound_name
 	asp.bus = bus
 	asp.stream = file
+	asp.max_polyphony = 10
 	add_child(asp)
 
-func play(sound_name: String) -> void:
-	get_node(sound_name).play()
+func play(sound_name: String, fade_in: float = 0.0, pitch: float = 1.0) -> void:
+	var asp: AudioStreamPlayer = get_node(sound_name)
+	if not asp:
+		push_warning(
+			"You specified a sound file which doesn't exist: '", sound_name,
+			"' (available: ", get_children().map(func(c): return str(c.name)), ")"
+		)
+		return
+
+	if fade_in > 0.0: asp.volume_db = -80
+	asp.pitch_scale = pitch
+	asp.play()
+	if fade_in > 0.0:
+		if _fade_tweens.has(sound_name) and _fade_tweens[sound_name].is_running():
+			_fade_tweens[sound_name].kill()
+		_fade_tweens[sound_name] = get_tree().create_tween()
+		_fade_tweens[sound_name].tween_property(asp, "volume_db", 0, fade_in)
 
 func fade_out(sound_name: String) -> void:
 	_fade_out_player(get_node(sound_name))
@@ -38,9 +52,12 @@ func fade_out_all() -> void:
 func _fade_out_player(player: AudioStreamPlayer) -> void:
 	var vol = player.volume_db
 	if player.playing:
-		var t: Tween = get_tree().create_tween()
-		t.tween_property(player, "volume_db", -80, 0.65)
-		t.tween_callback(func():
+		var sound_name = StringName(player.name)
+		if _fade_tweens.has(sound_name) and _fade_tweens[sound_name].is_running():
+			_fade_tweens[sound_name].kill()
+		_fade_tweens[sound_name] = get_tree().create_tween()
+		_fade_tweens[sound_name].tween_property(player, "volume_db", -80, 0.65)
+		_fade_tweens[sound_name].tween_callback(func():
 			player.stop()
 			player.volume_db = vol
 		)

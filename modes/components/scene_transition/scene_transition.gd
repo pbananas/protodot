@@ -8,6 +8,7 @@ var transitioning:bool = false
 
 func _ready() -> void:
 	circle.size = get_viewport().get_visible_rect().size
+	circle.texture.width = circle.size.x
 	circle.material.set_shader_parameter("screen_width", circle.size.x)
 	circle.material.set_shader_parameter("screen_height", circle.size.y)
 	circle.material.set_shader_parameter("circle_size", 1.05)
