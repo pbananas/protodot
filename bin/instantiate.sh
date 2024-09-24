@@ -27,6 +27,7 @@ cd "$DEST" || exit
 sed -i "" "s|config/name=\\\"_template\\\"|config/name=\\\"$REPO\\\"|" project.godot
 
 rm bin/instantiate.sh
+rm bin/diff-with-project.sh
 rm -rf .git
 rm -rf .godot
 
