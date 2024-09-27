@@ -1,10 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://d4i7gyb47wcve"]
 
-[ext_resource type="Script" path="res://components/camera/camera.gd" id="1_03b1c"]
+[ext_resource type="Script" path="res://modes/components/camera/camera.gd" id="1_t7jhg"]
 
 [node name="Camera" type="Camera2D"]
 ignore_rotation = false
-script = ExtResource("1_03b1c")
+script = ExtResource("1_t7jhg")
 
 [node name="CurrentPos" type="ColorRect" parent="."]
 visible = false

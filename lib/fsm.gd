@@ -38,7 +38,7 @@ func _ready():
 	for available_state in get_children():
 		if available_state is State:
 			_states[available_state.name] = available_state
-			available_state.target = target
+			available_state.setup()
 			available_state.change_state.connect(_change_state)
 
 func set_state_property(state_name: StringName, property_name: String, value: Variant) -> void:
