@@ -22,10 +22,11 @@ func _add(sound_name: StringName, file: AudioStream, bus: StringName) -> void:
 	asp.bus = bus
 	asp.stream = file
 	asp.max_polyphony = 10
+	_existing[bus].append(sound_name)
 	add_child(asp)
 
 func play(sound_name: StringName, fade_in: float = 0.0, pitch: float = 1.0) -> void:
-	var asp: AudioStreamPlayer = get_node(sound_name)
+	var asp: AudioStreamPlayer = get_node(str(sound_name))
 	if not asp:
 		push_warning(
 			"You specified a sound file which doesn't exist: '", sound_name,
@@ -43,7 +44,7 @@ func play(sound_name: StringName, fade_in: float = 0.0, pitch: float = 1.0) -> v
 		_fade_tweens[sound_name].tween_property(asp, "volume_db", 0, fade_in)
 
 func fade_out(sound_name: StringName) -> void:
-	_fade_out_player(get_node(sound_name))
+	_fade_out_player(get_node(str(sound_name)))
 
 func fade_out_all(bus_name: StringName = &"ALL") -> void:
 	for player in get_children():

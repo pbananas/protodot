@@ -21,7 +21,7 @@ static func setup(fsm_target: Node2D, states: Array[GDScript]) -> FSM:
 	for state_class in states:
 		var state = state_class.new()
 		state.name = state_class.state_name
-		state.fsm = self
+		state.fsm = instance
 		print("\tAdded state: ", state.name)
 		instance.add_child(state)
 

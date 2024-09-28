@@ -13,25 +13,25 @@ var force_position: Vector2 = Vector2.INF
 var _disable_damping: bool = false
 
 func _ready() -> void:
-	Events.shake.connect(shake)
+	Events.camera_shake.connect(shake)
 	Events.pause_damping.connect(func(): _disable_damping = true)
 	Events.resume_damping.connect(func(): _disable_damping = false)
 	Events.zoom.connect(_zoom)
 	Events.reset_zoom.connect(_reset_zoom)
 
 func _zoom(amount: float, location: Vector2, disable_damping: bool) -> void:
-       var old_disable_damping = _disable_damping
-       _disable_damping = disable_damping
-       force_position = location
-       var t: Tween = create_tween()
-       t.tween_property(self, "zoom", Vector2(amount, amount), 0.25)
-       await t.finished
-       _disable_damping = old_disable_damping
+	var old_disable_damping = _disable_damping
+	_disable_damping = disable_damping
+	force_position = location
+	var t: Tween = create_tween()
+	t.tween_property(self, "zoom", Vector2(amount, amount), 0.25)
+	await t.finished
+	_disable_damping = old_disable_damping
 
 func _reset_zoom() -> void:
-       force_position = Vector2.INF
-       var t: Tween = create_tween()
-       t.tween_property(self, "zoom", Vector2.ONE, 0.2)
+	force_position = Vector2.INF
+	var t: Tween = create_tween()
+	t.tween_property(self, "zoom", Vector2.ONE, 0.2)
 
 func shake(d: float, f: int, a: float, x_yn: bool = true, y_yn: bool = true) -> void:
 	pass
@@ -45,7 +45,7 @@ func _handle_shake() -> void:
 func _process(delta: float) -> void:
 	var new_position: Vector2
 	if is_instance_valid(follow_target):
-		new_position = follow_target.get_global_position() - Config.SCREEN_SIZE/2 #GameState.scene.get_camera_follow_target()
+		new_position = follow_target.get_global_position() - Config.SCREEN_SIZE/2
 	else:
 		new_position = Vector2.ZERO
 
@@ -68,7 +68,7 @@ func _process(delta: float) -> void:
 	_handle_shake()
 
 	$CurrentPos.global_position = global_position
-	$TargetPos.global_position = target
+	$TargetPos.global_position = follow_target if follow_target else Vector2.ZERO
 
 func _smooth_damp(current: Vector2, target_pos: Vector2, velocity: Vector2, smooth_time: float, delta: float) -> Vector2:
 	var omega: float = 2.0 / smooth_time
