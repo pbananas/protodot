@@ -24,7 +24,7 @@ func _add(sound_name: StringName, file: AudioStream, bus: StringName) -> void:
 	asp.max_polyphony = 10
 	add_child(asp)
 
-func play(sound_name: String, fade_in: float = 0.0, pitch: float = 1.0) -> void:
+func play(sound_name: StringName, fade_in: float = 0.0, pitch: float = 1.0) -> void:
 	var asp: AudioStreamPlayer = get_node(sound_name)
 	if not asp:
 		push_warning(
@@ -42,12 +42,13 @@ func play(sound_name: String, fade_in: float = 0.0, pitch: float = 1.0) -> void:
 		_fade_tweens[sound_name] = get_tree().create_tween()
 		_fade_tweens[sound_name].tween_property(asp, "volume_db", 0, fade_in)
 
-func fade_out(sound_name: String) -> void:
+func fade_out(sound_name: StringName) -> void:
 	_fade_out_player(get_node(sound_name))
 
-func fade_out_all() -> void:
+func fade_out_all(bus_name: StringName = &"ALL") -> void:
 	for player in get_children():
-		_fade_out_player(player)
+		if bus_name == &"ALL" or player.bus == bus_name:
+			_fade_out_player(player)
 
 func _fade_out_player(player: AudioStreamPlayer) -> void:
 	var vol = player.volume_db

@@ -5,11 +5,13 @@ class_name Main
 @onready var game_scene = preload("res://modes/game.tscn")
 @onready var game_over_scene = preload("res://modes/game_over.tscn")
 
+@onready var camera: Camera = $Camera
+
 var current_scene
 
 func _ready() -> void:
 	_set_mouse_cursor()
-	$Camera2D.offset = get_viewport().get_visible_rect().size / 2
+	camera.offset = get_viewport().get_visible_rect().size / 2
 	_swap_scenes({
 		&"menu": menu_scene,
 		&"game": game_scene,
@@ -40,8 +42,7 @@ func _swap_scenes(to: PackedScene) -> Node2D:
 	return current_scene
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if event.keycode == KEY_ESCAPE:
-		get_tree().quit()
+	if event.keycode == KEY_ESCAPE: get_tree().quit()
 
 	if event.is_action("fullscreen"):
 		var fullscreen = DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN

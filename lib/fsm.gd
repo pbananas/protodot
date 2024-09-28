@@ -21,6 +21,7 @@ static func setup(fsm_target: Node2D, states: Array[GDScript]) -> FSM:
 	for state_class in states:
 		var state = state_class.new()
 		state.name = state_class.state_name
+		state.fsm = self
 		print("\tAdded state: ", state.name)
 		instance.add_child(state)
 
@@ -60,7 +61,7 @@ func _change_state(new_state_name: String, enter_args: Dictionary={}):
 	#if Config.DEBUG: print("\tENTER COMPLETE")
 	_current_state = new_state
 
-	call_deferred("emit_signal", "state_changed")
+	state_changed.emit.call_deferred()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if _current_state:

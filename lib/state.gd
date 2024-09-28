@@ -4,6 +4,7 @@ class_name State
 signal change_state(new_state_name)
 
 var target: Node2D
+var fsm: FSM
 var is_active_state: bool = false
 
 # override these
@@ -29,3 +30,6 @@ func _exit_state_base() -> void:
 
 func transition_to(new_state_name: String) -> void:
 	change_state.emit(new_state_name)
+
+func is_current_state() -> bool:
+	return fsm.current_state == name
