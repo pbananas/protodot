@@ -45,4 +45,3 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 else
     echo "Skipping push to GitHub. Remember to create the repository and push later."
 fi
-
