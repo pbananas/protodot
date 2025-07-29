@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 class_name FSM
 
 signal state_changed
@@ -9,20 +9,19 @@ var current_state: String :
 var _current_state: State
 var _states: Dictionary = {}
 
-static func setup(fsm_target: Node2D, states: Array[GDScript]) -> FSM:
-	if Config.DEBUG:
-		print("*** New FSM for ", fsm_target)
+static func setup(fsm_target: Node, states: Array[GDScript]) -> FSM:
+	#if Config.DEBUG:
+		#print("*** New FSM for ", fsm_target)
 	var instance: FSM = new()
 	instance.name = "FSM for %s" % fsm_target.name
+	instance.target = fsm_target
 
 	if states.size() == 0: return instance
-
-	instance.target = fsm_target
 	for state_class in states:
 		var state = state_class.new()
 		state.name = state_class.state_name
 		state.fsm = instance
-		print("\tAdded state: ", state.name)
+		#print("\tAdded state: ", state.name)
 		instance.add_child(state)
 
 	# go to initial state
@@ -39,7 +38,7 @@ func _ready():
 	for available_state in get_children():
 		if available_state is State:
 			_states[available_state.name] = available_state
-			available_state.setup()
+			available_state._setup()
 			available_state.change_state.connect(_change_state)
 
 func set_state_property(state_name: StringName, property_name: String, value: Variant) -> void:
@@ -66,3 +65,8 @@ func _change_state(new_state_name: String, enter_args: Dictionary={}):
 func _unhandled_input(event: InputEvent) -> void:
 	if _current_state:
 		_current_state._handle_input(event)
+
+func _handle_mouse_over() -> void:
+	if _current_state: _current_state._handle_mouse_over()
+func _handle_mouse_out() -> void:
+	if _current_state: _current_state._handle_mouse_out()

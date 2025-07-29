@@ -3,7 +3,6 @@ class_name State
 
 signal change_state(new_state_name)
 
-var target: Node2D
 var fsm: FSM
 var is_active_state: bool = false
 
@@ -12,6 +11,8 @@ func _enter_state(_args: Dictionary, _from_last: Dictionary) -> void: pass
 func _exit_state() -> Dictionary: return {}
 func _physics_process(_delta: float) -> void: pass
 func _handle_input(_event: InputEvent) -> void: pass
+func _handle_mouse_over() -> void: pass
+func _handle_mouse_out() -> void: pass
 func _setup() -> void: pass
 
 func _ready() -> void:
