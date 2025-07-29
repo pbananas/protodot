@@ -10,3 +10,5 @@ func _enter_state(_args: Dictionary, _from_last: Dictionary) -> void: pass
 func _exit_state() -> Dictionary: return {}
 func _physics_process(_delta: float) -> void: pass
 func _handle_input(_event: InputEvent) -> void: pass
+func _handle_mouse_over() -> void: pass
+func _handle_mouse_out() -> void: pass

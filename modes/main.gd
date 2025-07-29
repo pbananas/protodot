@@ -11,13 +11,12 @@ var current_scene
 
 func _ready() -> void:
 	_set_mouse_cursor()
-	camera.offset = get_viewport().get_visible_rect().size / 2
 	_swap_scenes({
 		&"menu": menu_scene,
 		&"game": game_scene,
 		&"game_over": game_over_scene
 	}[Config.INIT_SCENE])
-	Events.game_over.connect(game_over)
+	Events.Game.over.connect(game_over)
 
 func game() -> void: _change_scene(game_scene)
 func game_over() -> void: _change_scene(game_over_scene)
@@ -28,7 +27,8 @@ func _change_scene(new_scene) -> void:
 		_swap_scenes.bind(new_scene),
 		func(loaded_scene) -> void:
 			Audio.fade_out_all()
-			loaded_scene.transition_complete()
+			loaded_scene.transition_complete(),
+		SceneTransition.TransitionType.FADE
 	)
 
 func _swap_scenes(to: PackedScene) -> Node2D:

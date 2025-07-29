@@ -1,13 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://cbq0mqynl1elk"]
 
-[ext_resource type="Script" path="res://modes/components/scene_transition/scene_transition.gd" id="1_pmknj"]
-[ext_resource type="Shader" path="res://modes/components/scene_transition/scene_transition.gdshader" id="2_7un1w"]
+[ext_resource type="Script" uid="uid://cwpn6ec25xgnh" path="res://components/scene_transition/scene_transition.gd" id="1_pmknj"]
+[ext_resource type="Shader" uid="uid://c61px1vcgeers" path="res://components/scene_transition/scene_transition.gdshader" id="2_7un1w"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5natg"]
 shader = ExtResource("2_7un1w")
 shader_parameter/circle_size = 0.601
-shader_parameter/screen_width = null
-shader_parameter/screen_height = null
+shader_parameter/screen_width = 0.0
+shader_parameter/screen_height = 0.0
 
 [sub_resource type="Gradient" id="Gradient_8l3mt"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -20,7 +20,14 @@ follow_viewport_enabled = true
 script = ExtResource("1_pmknj")
 
 [node name="Circle" type="TextureRect" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_5natg")
 offset_right = 224.0
 offset_bottom = 1.0
 texture = SubResource("GradientTexture1D_o2gtf")
+
+[node name="FadeRect" type="ColorRect" parent="."]
+visible = false
+offset_right = 864.0
+offset_bottom = 384.0
+color = Color(0, 0, 0, 1)

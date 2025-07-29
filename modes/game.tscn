@@ -11,5 +11,4 @@ offset_left = 142.0
 offset_top = 71.0
 offset_right = 185.0
 offset_bottom = 94.0
-text = "game
-"
+text = "Press SPACE to shake camera for 0.5s"

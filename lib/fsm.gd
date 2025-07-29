@@ -4,6 +4,7 @@ class_name FSM
 signal state_changed
 signal change_state(new_state: String, enter_args: Dictionary)
 
+var target: Node
 var current_state: String :
 	get: return _current_state.name
 var _current_state: State
@@ -51,11 +52,15 @@ func _change_state(new_state_name: String, enter_args: Dictionary={}):
 	var from_last_state: Dictionary
 	if _current_state is State:
 		_current_state._exit_state_base()
+
+		@warning_ignore("REDUNDANT_AWAIT")
 		from_last_state = await _current_state._exit_state()
 	#if Config.DEBUG: print("\tEXIT COMPLETE - from last: ", from_last_state)
 
 	var new_state: State = _states[new_state_name]
 	new_state._enter_state_base()
+
+	@warning_ignore("REDUNDANT_AWAIT")
 	await new_state._enter_state(enter_args, from_last_state)
 	#if Config.DEBUG: print("\tENTER COMPLETE")
 	_current_state = new_state

@@ -25,6 +25,7 @@ cp -r "$DIR" "$DEST"
 cd "$DEST" || exit
 
 sed -i "" "s|config/name=\\\"_template\\\"|config/name=\\\"$REPO\\\"|" project.godot
+sed -i "" "s|\\\"/_template\\\"|\\$REPO\\|" export_presets.cfg
 
 rm bin/instantiate.sh
 rm bin/diff-with-project.sh
@@ -38,10 +39,18 @@ git add .
 git commit -m "instantiate"
 git remote add origin git@github.com:pbananas/$REPO.git
 
-read -p "Does the GitHub repository '$REPO' exist? (y/n) " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
+# Check if GitHub repository exists
+if gh repo view pbananas/$REPO >/dev/null 2>&1; then
+    echo "Repository 'pbananas/$REPO' exists. Pushing..."
     git push -u origin main
 else
-    echo "Skipping push to GitHub. Remember to create the repository and push later."
+    echo "Repository 'pbananas/$REPO' does not exist."
+    read -p "Create it now? (y/n) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        gh repo create pbananas/$REPO --private --source=. --remote=origin --push
+        echo "Repository created and pushed!"
+    else
+        echo "Skipping GitHub setup. Remember to create the repository and push later."
+    fi
 fi

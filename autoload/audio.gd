@@ -2,18 +2,18 @@ extends Node2D
 
 var _existing := {
 	&"SFX": [],
-	&"Music": []
+	&"Music": [],
+	&"Ambient": [],
 }
 
 var _fade_tweens := {}
-
-func _ready() -> void:
-	pass
 
 func add_sfx(sound_name: StringName, file: AudioStream) -> void:
 	_add(sound_name, file, &"SFX")
 func add_music(sound_name: StringName, file: AudioStream) -> void:
 	_add(sound_name, file, &"Music")
+func add_ambient(sound_name: StringName, file: AudioStream) -> void:
+	_add(sound_name, file, &"Ambient")
 
 func _add(sound_name: StringName, file: AudioStream, bus: StringName) -> void:
 	if sound_name in _existing[bus]: return

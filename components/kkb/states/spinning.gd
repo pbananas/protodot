@@ -8,8 +8,8 @@ func _enter_state(_args: Dictionary, _from_last: Dictionary) -> void:
 	spinning_tween = get_tree().create_tween()
 	spinning_tween.set_loops()
 	spinning_tween.bind_node(self)
-	spinning_tween.tween_property(target, "rotation_degrees", target.rotation_degrees + 360, 2)
-	spinning_tween.tween_callback(func(): target.rotation_degrees -= 360)
+	spinning_tween.tween_property(fsm.target, "rotation_degrees", fsm.target.rotation_degrees + 360, 2)
+	spinning_tween.tween_callback(func(): fsm.target.rotation_degrees -= 360)
 
 func _exit_state() -> Dictionary:
 	spinning_tween.kill()
