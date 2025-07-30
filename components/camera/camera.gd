@@ -16,11 +16,11 @@ var _disable_damping: bool = false
 func _ready() -> void:
 	_base_offset = get_viewport().get_visible_rect().size / 2
 	offset = _base_offset
-	Events.Camera.shake.connect(shake)
-	Events.Camera.pause_damping.connect(func(): _disable_damping = true)
-	Events.Camera.resume_damping.connect(func(): _disable_damping = false)
-	Events.Camera.zoom.connect(_zoom)
-	Events.Camera.reset_zoom.connect(_reset_zoom)
+	Events.camera.shake.connect(shake)
+	Events.camera.pause_damping.connect(func(): _disable_damping = true)
+	Events.camera.resume_damping.connect(func(): _disable_damping = false)
+	Events.camera.zoom.connect(_zoom)
+	Events.camera.reset_zoom.connect(_reset_zoom)
 
 func _zoom(amount: float, location: Vector2, disable_damping: bool) -> void:
 	var old_disable_damping = _disable_damping

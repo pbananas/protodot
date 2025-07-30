@@ -16,7 +16,7 @@ func _ready() -> void:
 		&"game": game_scene,
 		&"game_over": game_over_scene
 	}[Config.INIT_SCENE])
-	Events.Game.over.connect(game_over)
+	Events.game.over.connect(game_over)
 
 func game() -> void: _change_scene(game_scene)
 func game_over() -> void: _change_scene(game_over_scene)

@@ -11,5 +11,5 @@ class _Camera:
 	signal pause_damping
 	signal resume_damping
 
-var Game = _Game.new()
-var Camera = _Camera.new()
+var game = _Game.new()
+var camera = _Camera.new()
